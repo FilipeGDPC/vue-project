@@ -26,6 +26,13 @@ const addToCard = () => {
 const updateVariant = (index) => {
   selectedVariant.value = index;
 };
+
+const addReview = (review) => {
+  reviews.value.push(review);
+}
+
+const reviews = ref([])
+
 const title = computed(() => {
   return brand.value + " " + product.value;
 });
@@ -78,6 +85,6 @@ const shipping = computed(() => {
         </button>
       </div>
     </div>
-    <ReviewForm></ReviewForm>
+    <ReviewForm @review-submitted="addReview"></ReviewForm>
  </div>
 </template>
