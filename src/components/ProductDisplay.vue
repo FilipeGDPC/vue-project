@@ -18,6 +18,7 @@ const variants = ref([
     { id: 2235, color: "red", image: socksRedImage, quantity: 0 },
 ]);
 const details = ref(["50% cotton", "30% wool", "20% polyester"]);
+
 const addToCard = () => {
     emit("add-to-card", variants.value[selectedVariant.value].id);
 };
