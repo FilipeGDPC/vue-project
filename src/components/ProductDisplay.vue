@@ -86,7 +86,7 @@ const shipping = computed(() => {
         </button>
       </div>
     </div>
-    <ReviewList :reviews="reviews"></ReviewList>
+    <ReviewList v-if="reviews.length > 0" :reviews="reviews"></ReviewList>
     <ReviewForm @review-submitted="addReview"></ReviewForm>
  </div>
 </template>

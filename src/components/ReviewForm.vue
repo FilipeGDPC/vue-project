@@ -10,6 +10,11 @@ const review = reactive({
 });
 
 const OnSubmit = () => {
+    if (review.name === "" || review.content === "" || review.rating === null) {
+        alert("Please fill out all fields");
+        return;
+    }
+
     const productReview = {
         name: review.name,
         content: review.content,
