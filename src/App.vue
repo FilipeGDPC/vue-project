@@ -4,6 +4,8 @@ import ProductDisplay from "@/components/ProductDisplay.vue";
 
 const cart = ref([]);
 const premium = ref(true);
+
+
 const updateCart = (id) => {
   cart.value.push(id);
 };
