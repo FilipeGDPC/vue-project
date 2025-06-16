@@ -1,14 +1,40 @@
+<script setup>
+import { reactive } from "vue";
+
+const emit = defineEmits(["review-submitted"]);
+
+const review = reactive({
+    name: "",
+    review: "",
+    rating: null
+});
+
+const OnSubmit = () => {
+    const productReview = {
+        name: review.name,
+        content: review.review,
+        rating: review.rating
+    }
+    emit("review-submitted", productReview);
+}
+
+review.name = ""
+review.content = ""
+review.rating = null
+
+</script>
+
 <template>
-    <form>
-        <h3>Review Form</h3>
+    <form class="review-form" @submit.prevent="OnSubmit">
+        <h3>Leave a review</h3>
         <label for="name">Name:</label>
-        <input id = "name">
+        <input id = "name" v-model="review.name">
 
         <label for="review">Review:</label>
-        <textarea id="review"></textarea>
+        <textarea id="review" v-model="review.content"></textarea>
 
         <label for="rating">Rating:</label>
-        <select id="rating">
+        <select id="rating" v-model.number="review.rating">
             <option value="5">5</option>
             <option value="4">4</option>
             <option value="3">3</option>
