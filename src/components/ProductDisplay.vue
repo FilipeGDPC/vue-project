@@ -5,13 +5,18 @@ import socksRedImage from "@/assets/images/mario_socks.avif";
 import ReviewList from "./ReviewList.vue";
 import ReviewForm from "./ReviewForm.vue";
 
+const emit = defineEmits(["add-to-card", "remove-from-cart"]);
 const props = defineProps({
     premium: {
         type: Boolean,
         required: true
+    },
+    cart: {
+        type: Array,
+        required: false,
+        default: () => []
     }
 })
-const emit = defineEmits(["add-to-card"]);
 const selectedVariant = ref(0);
 const product = ref("Socks");
 const brand = ref("Vue Mastery");
@@ -23,6 +28,9 @@ const details = ref(["50% cotton", "30% wool", "20% polyester"]);
 
 const addToCard = () => {
     emit("add-to-card", variants.value[selectedVariant.value].id);
+};
+const removeFromCart = () => {
+    emit("remove-from-cart", variants.value[selectedVariant.value].id);
 };
 const updateVariant = (index) => {
   selectedVariant.value = index;
@@ -76,14 +84,24 @@ const shipping = computed(() => {
           class="color-circle"
           :style="{ backgroundColor: variant.color }"
         ></div>
-        <button
-          class="button"
-          :class="{ disabledButton: !inStock }"
-          @click="addToCard"
-          :disabled="!inStock"
-        >
-          Add to cart
-        </button>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button
+            class="button"
+            :class="{ disabledButton: !inStock }"
+            @click="addToCard"
+            :disabled="!inStock"
+          >
+            Add to cart
+          </button>
+          <button
+            class="button"
+            :class="{ disabledButton: props.cart.filter(id => id === variants[selectedVariant].id).length === 0 }"
+            @click="removeFromCart"
+            :disabled="props.cart.filter(id => id === variants[selectedVariant].id).length === 0"
+          >
+            Remove from cart
+          </button>
+        </div>
       </div>
     </div>
     <ReviewList v-if="reviews.length > 0" :reviews="reviews"></ReviewList>
