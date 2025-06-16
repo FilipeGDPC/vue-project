@@ -21,16 +21,24 @@ const selectedVariant = ref(0);
 const product = ref("Socks");
 const brand = ref("Vue Mastery");
 const variants = ref([
-    { id: 2234, color: "green", image: socksGreenImage, quantity: 50 },
-    { id: 2235, color: "red", image: socksRedImage, quantity: 0 },
+    { id: 2234, color: "green", image: socksGreenImage, quantity: 5 },
+    { id: 2235, color: "red", image: socksRedImage, quantity: 5 },
 ]);
 const details = ref(["50% cotton", "30% wool", "20% polyester"]);
 
 const addToCard = () => {
-    emit("add-to-card", variants.value[selectedVariant.value].id);
+    const variant = variants.value[selectedVariant.value];
+    if (variant.quantity > 0) {
+        emit("add-to-card", variant.id);
+        variant.quantity--;
+    }
 };
 const removeFromCart = () => {
-    emit("remove-from-cart", variants.value[selectedVariant.value].id);
+    const variant = variants.value[selectedVariant.value];
+    emit("remove-from-cart", variant.id);
+    if (variant.quantity < 10 && props.cart.filter(id => id === variant.id).length < 10) {
+        variant.quantity++;
+    }
 };
 const updateVariant = (index) => {
   selectedVariant.value = index;
