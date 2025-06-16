@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import socksGreenImage from "@/assets/images/Luigi_socks.webp";
 import socksRedImage from "@/assets/images/mario_socks.avif";
+import ReviewList from "./ReviewList.vue";
 import ReviewForm from "./ReviewForm.vue";
 
 const props = defineProps({
@@ -85,6 +86,7 @@ const shipping = computed(() => {
         </button>
       </div>
     </div>
+    <ReviewList :reviews="reviews"></ReviewList>
     <ReviewForm @review-submitted="addReview"></ReviewForm>
  </div>
 </template>

@@ -12,10 +12,13 @@ const review = reactive({
 const OnSubmit = () => {
     const productReview = {
         name: review.name,
-        content: review.review,
+        content: review.content,
         rating: review.rating
     }
     emit("review-submitted", productReview);
+    review.name = "";
+    review.content = "";
+    review.rating = null;
 }
 
 review.name = ""
